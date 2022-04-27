@@ -7,15 +7,15 @@ const modalRoot = document.querySelector('#modal-root');
 export default function Modal({ onClose, child }) {
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
   });
   const handleKeyDown = e => {
     if (e.code === 'Escape') {
-      removeListener();
       onClose();
     }
-  };
-  const removeListener = e => {
-    return window.removeEventListener('keydown', handleKeyDown);
   };
   return createPortal(
     <ModalOverlay>
